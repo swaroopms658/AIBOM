@@ -1,0 +1,27 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "ModelDetails": {
+        "Name": "prg-8.py",
+        "Version": "1.0",
+        "Type": "Software Model",
+        "Author": "Community",
+        "Licenses": [
+            "MIT",
+            "Apache-2.0"
+        ],
+        "Libraries": [
+            "pgmpy",
+            "numpy",
+            "pytorch",
+            "tensorflow"
+        ],
+        "Source": "Local Upload",
+        "BOMGeneration": {
+            "Timestamp": "2025-02-08T10:48:47.733437",
+            "Method": "Automated Extraction",
+            "GeneratedBy": "FastAPI System"
+        },
+        "OtherReferences": [],
+        "Tags": []
+    }
+}
