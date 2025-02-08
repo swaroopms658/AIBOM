@@ -4,23 +4,19 @@
         "Name": "C2_W4_Lab_02_Tree_Ensemble.ipynb",
         "Version": "1.0",
         "Type": "Software Model",
-        "Author": "Community",
+        "Author": "Unknown",
         "Licenses": [
             "MIT",
             "Apache-2.0"
         ],
-        "Libraries": [
-            "sklearn",
-            "numpy",
-            "xgboost",
-            "pandas",
-            "matplotlib"
-        ],
+        "Libraries": [],
         "Source": "Local Upload",
         "BOMGeneration": {
-            "Timestamp": "2025-02-08T07:44:17.908163",
+            "Timestamp": "2025-02-08T10:10:34.301722",
             "Method": "Automated Extraction",
             "GeneratedBy": "FastAPI System"
-        }
+        },
+        "OtherReferences": [],
+        "Tags": []
     }
 }

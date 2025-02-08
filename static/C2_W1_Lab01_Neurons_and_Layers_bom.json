@@ -1,22 +1,18 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "ModelDetails": {
-        "Name": "views.py",
+        "Name": "C2_W1_Lab01_Neurons_and_Layers.ipynb",
         "Version": "1.0",
         "Type": "Software Model",
-        "Author": "Community",
+        "Author": "Unknown",
         "Licenses": [
             "MIT",
             "Apache-2.0"
         ],
-        "Libraries": [
-            "sklearn",
-            "django",
-            "pandas"
-        ],
+        "Libraries": [],
         "Source": "Local Upload",
         "BOMGeneration": {
-            "Timestamp": "2025-02-08T10:12:01.877236",
+            "Timestamp": "2025-02-08T08:45:06.731339",
             "Method": "Automated Extraction",
             "GeneratedBy": "FastAPI System"
         },
