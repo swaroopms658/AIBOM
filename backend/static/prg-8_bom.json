@@ -10,13 +10,34 @@
             "Apache-2.0"
         ],
         "Libraries": [
-            "pytorch",
+            "numpy",
             "pgmpy",
-            "numpy"
+            "pytorch"
         ],
+        "HardwareRequirements": {
+            "numpy": {
+                "CPU": "Any modern processor",
+                "RAM": "2GB minimum"
+            },
+            "pgmpy": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "pytorch": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            }
+        },
+        "SystemSpecs": {
+            "CPU": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+            "RAM": "7 GB",
+            "GPU": "N/A (GPU detection requires additional libraries)"
+        },
         "Source": "Local Upload",
         "BOMGeneration": {
-            "Timestamp": "2025-02-08T11:27:34.305549",
+            "Timestamp": "2025-02-08T11:44:07.719627",
             "Method": "Automated Extraction",
             "GeneratedBy": "FastAPI System"
         },
