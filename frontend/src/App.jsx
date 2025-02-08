@@ -1,17 +1,19 @@
 import { useState } from "react";
 import axios from "axios";
+import FileSaver from "file-saver";
 
 function App() {
   const [file, setFile] = useState(null);
-  const [jsonData, setJsonData] = useState(null);
+  const [response, setResponse] = useState(null);
+  const [jsonFile, setJsonFile] = useState("");
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
   };
 
   const handleUpload = async () => {
     if (!file) {
-      alert("Please select a file.");
+      alert("Please select a file first!");
       return;
     }
 
@@ -19,48 +21,48 @@ function App() {
     formData.append("file", file);
 
     try {
-      console.log("Uploading file:", file.name);
-      const response = await axios.post(
-        "http://127.0.0.1:8000/upload",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-
-      console.log("Server response:", response.data);
-      setJsonData(response.data);
+      const res = await axios.post("http://127.0.0.1:8000/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setResponse(res.data.data);
+      setJsonFile(res.data.json_file);
     } catch (error) {
-      console.error("Error uploading file:", error);
-      alert("File processing failed. Check console for details.");
+      console.error("Upload error:", error);
+      setResponse({ error: "Failed to process file" });
     }
   };
 
-  const handleDownload = () => {
-    if (!jsonData) return;
-
-    const blob = new Blob([JSON.stringify(jsonData, null, 2)], {
-      type: "application/json",
-    });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "libraries.json";
-    link.click();
+  const handleDownload = async () => {
+    if (jsonFile) {
+      try {
+        const res = await axios.get(
+          `http://127.0.0.1:8000/static/${jsonFile}`,
+          {
+            responseType: "blob",
+          }
+        );
+        FileSaver.saveAs(res.data, jsonFile);
+      } catch (error) {
+        console.error("Download error:", error);
+      }
+    }
   };
 
   return (
     <div style={{ textAlign: "center", padding: "50px" }}>
       <h1>AI BOM Frontend</h1>
-      <input type="file" onChange={handleFileChange} accept=".py" />
+      <input type="file" onChange={handleFileChange} />
       <button onClick={handleUpload} style={{ marginLeft: "10px" }}>
         Upload
       </button>
 
-      {jsonData && (
+      {response && (
         <div style={{ marginTop: "20px", textAlign: "left" }}>
-          <h3>Extracted Libraries:</h3>
-          <pre>{JSON.stringify(jsonData, null, 2)}</pre>
-          <button onClick={handleDownload}>Download JSON</button>
+          <h3>Extracted Dependencies:</h3>
+          <pre>{JSON.stringify(response, null, 2)}</pre>
+          <button onClick={handleDownload} style={{ marginTop: "10px" }}>
+            Download JSON
+          </button>
         </div>
       )}
     </div>

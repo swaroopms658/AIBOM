@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "ModelDetails": {
+        "Name": "C2_W4_Lab_02_Tree_Ensemble.ipynb",
+        "Version": "1.0",
+        "Type": "Software Model",
+        "Author": "Community",
+        "Licenses": [
+            "MIT",
+            "Apache-2.0"
+        ],
+        "Libraries": [
+            "sklearn",
+            "numpy",
+            "xgboost",
+            "pandas",
+            "matplotlib"
+        ],
+        "Source": "Local Upload",
+        "BOMGeneration": {
+            "Timestamp": "2025-02-08T07:44:17.908163",
+            "Method": "Automated Extraction",
+            "GeneratedBy": "FastAPI System"
+        }
+    }
+}
