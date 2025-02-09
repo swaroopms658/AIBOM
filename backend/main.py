@@ -50,13 +50,27 @@ KNOWN_MODELS = {
 
 # ✅ Hardware requirements
 LIBRARY_HARDWARE_REQUIREMENTS = {
-    "tensorflow": {"CPU": "Intel i5/i7", "RAM": "8GB+", "GPU": "NVIDIA GTX 1050+"},
-    "torch": {"CPU": "Intel i5/i7", "RAM": "8GB+", "GPU": "NVIDIA GTX 1060+"},
-    "opencv": {"CPU": "Intel Core 2 Duo+", "RAM": "2GB+", "GPU": "Not required"},
-    "numpy": {"CPU": "Any", "RAM": "2GB+"},
-    "pandas": {"CPU": "Any", "RAM": "4GB+"},
-    "transformers": {"CPU": "Intel i7+", "RAM": "16GB+", "GPU": "NVIDIA RTX 2060+"},
+    "tensorflow": {"CPU": "Intel i5/i7 or AMD Ryzen 5/7", "RAM": "8GB (16GB recommended)", "GPU": "NVIDIA GTX 1050+"},
+    "torch": {"CPU": "Intel i5/i7 or AMD Ryzen 5/7", "RAM": "8GB (16GB recommended)", "GPU": "NVIDIA GTX 1060+"},
+    "opencv": {"CPU": "Intel Core 2 Duo or higher", "RAM": "2GB (4GB recommended)", "GPU": "Not required"},
+    "numpy": {"CPU": "Any modern processor", "RAM": "2GB minimum"},
+    "pandas": {"CPU": "Any modern processor", "RAM": "4GB minimum"},
+    "transformers": {"CPU": "Intel i7 or AMD Ryzen 7+", "RAM": "16GB (32GB recommended)", "GPU": "NVIDIA RTX 2060+ or AMD Radeon RX 6600+"},
+    "scikit-learn": {"CPU": "Intel i5/i7 or AMD Ryzen 5/7", "RAM": "4GB (8GB recommended)", "GPU": "Not required"},
+    "matplotlib": {"CPU": "Any modern processor", "RAM": "2GB minimum", "GPU": "Not required"},
+    "seaborn": {"CPU": "Any modern processor", "RAM": "4GB minimum", "GPU": "Not required"},
+    "xgboost": {"CPU": "Intel i7 or AMD Ryzen 7+", "RAM": "8GB (16GB recommended)", "GPU": "NVIDIA GTX 1650+"},
+    "lightgbm": {"CPU": "Intel i5/i7 or AMD Ryzen 5/7", "RAM": "8GB minimum", "GPU": "Not required"},
+    "dask": {"CPU": "Intel i7 or AMD Ryzen 7+", "RAM": "16GB+ (32GB recommended)", "GPU": "Not required"},
+    "keras": {"CPU": "Intel i5/i7 or AMD Ryzen 5/7", "RAM": "8GB (16GB recommended)", "GPU": "NVIDIA GTX 1050+"},
+    "nltk": {"CPU": "Any modern processor", "RAM": "4GB minimum", "GPU": "Not required"},
+    "spacy": {"CPU": "Intel i5/i7 or AMD Ryzen 5/7", "RAM": "8GB (16GB recommended)", "GPU": "Not required"},
+    "fastai": {"CPU": "Intel i7 or AMD Ryzen 7+", "RAM": "16GB+ (32GB recommended)", "GPU": "NVIDIA GTX 1650+"},
+    "pytorch-lightning": {"CPU": "Intel i7 or AMD Ryzen 7+", "RAM": "16GB+ (32GB recommended)", "GPU": "NVIDIA RTX 2060+"},
+    "joblib": {"CPU": "Intel i5/i7 or AMD Ryzen 5/7", "RAM": "8GB minimum", "GPU": "Not required"},
+    "tqdm": {"CPU": "Any modern processor", "RAM": "2GB minimum", "GPU": "Not required"}
 }
+
 
 # ✅ Extract dependencies from Python code
 def extract_from_python_code(code):

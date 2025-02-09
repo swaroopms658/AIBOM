@@ -7,35 +7,35 @@
         "Author": "Community",
         "Licenses": [],
         "Libraries": [
-            "sklearn",
             "seaborn",
+            "sklearn",
             "matplotlib",
-            "numpy",
-            "pandas"
+            "pandas",
+            "numpy"
         ],
         "HardwareRequirements": {
+            "seaborn": {
+                "CPU": "Any modern processor",
+                "RAM": "4GB minimum",
+                "GPU": "Not required"
+            },
             "sklearn": {
                 "CPU": "Unknown",
                 "RAM": "Unknown",
                 "GPU": "Unknown"
             },
-            "seaborn": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
-            },
             "matplotlib": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
-            },
-            "numpy": {
-                "CPU": "Any",
-                "RAM": "2GB+"
+                "CPU": "Any modern processor",
+                "RAM": "2GB minimum",
+                "GPU": "Not required"
             },
             "pandas": {
-                "CPU": "Any",
-                "RAM": "4GB+"
+                "CPU": "Any modern processor",
+                "RAM": "4GB minimum"
+            },
+            "numpy": {
+                "CPU": "Any modern processor",
+                "RAM": "2GB minimum"
             }
         },
         "SystemSpecs": {
@@ -45,7 +45,7 @@
         },
         "Source": "Local Upload",
         "BOMGeneration": {
-            "Timestamp": "2025-02-09T10:20:18.685669",
+            "Timestamp": "2025-02-09T10:53:30.743211",
             "Method": "Automated Extraction",
             "GeneratedBy": "FastAPI System"
         }
