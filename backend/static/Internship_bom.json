@@ -1,9 +1,8 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
     "ModelDetails": {
-        "Name": "py lab 17.ipynb",
+        "Name": "Internship.zip",
         "Version": "1.0",
-        "Type": "Software Model",
+        "Type": "ZIP Archive",
         "Author": "Unknown",
         "Licenses": [],
         "Libraries": [],
@@ -15,11 +14,9 @@
         },
         "Source": "Local Upload",
         "BOMGeneration": {
-            "Timestamp": "2025-02-09T09:26:26.851829",
+            "Timestamp": "2025-02-09T09:34:45.164415",
             "Method": "Automated Extraction",
             "GeneratedBy": "FastAPI System"
-        },
-        "OtherReferences": [],
-        "Tags": []
+        }
     }
 }

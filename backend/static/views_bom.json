@@ -1,0 +1,44 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "ModelDetails": {
+        "Name": "views.py",
+        "Version": "1.0",
+        "Type": "Software Model",
+        "Author": "Community",
+        "Licenses": [],
+        "Libraries": [
+            "sklearn",
+            "django",
+            "pandas"
+        ],
+        "HardwareRequirements": {
+            "sklearn": {
+                "CPU": "Any modern processor (Intel i5/i7 or AMD Ryzen 5/7 recommended)",
+                "RAM": "4GB (8GB recommended)",
+                "GPU": "Not required (uses CPU)"
+            },
+            "django": {
+                "CPU": "Any modern processor",
+                "RAM": "2GB (4GB recommended for large projects)",
+                "GPU": "Not required"
+            },
+            "pandas": {
+                "CPU": "Any modern processor",
+                "RAM": "4GB minimum"
+            }
+        },
+        "SystemSpecs": {
+            "CPU": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+            "RAM": "20 GB",
+            "GPU": "N/A (GPU detection requires additional libraries)"
+        },
+        "Source": "Local Upload",
+        "BOMGeneration": {
+            "Timestamp": "2025-02-09T09:29:00.192397",
+            "Method": "Automated Extraction",
+            "GeneratedBy": "FastAPI System"
+        },
+        "OtherReferences": [],
+        "Tags": []
+    }
+}

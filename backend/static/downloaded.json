@@ -1,0 +1,103 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "ModelDetails": {
+        "Name": "Internship.zip",
+        "Version": "1.0",
+        "Type": "ZIP Archive",
+        "Author": "Community",
+        "Licenses": [
+            "GPL"
+        ],
+        "Libraries": [
+            "os",
+            "time",
+            "calendar",
+            "datetime",
+            "keyword",
+            "getpass",
+            "random",
+            "pandas",
+            "maths",
+            "math",
+            "numpy",
+            "sklearn",
+            "matplotlib"
+        ],
+        "HardwareRequirements": {
+            "os": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "time": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "calendar": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "datetime": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "keyword": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "getpass": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "random": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "pandas": {
+                "CPU": "Any",
+                "RAM": "4GB+"
+            },
+            "maths": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "math": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "numpy": {
+                "CPU": "Any",
+                "RAM": "2GB+"
+            },
+            "sklearn": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "matplotlib": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            }
+        },
+        "SystemSpecs": {
+            "CPU": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+            "RAM": "20 GB",
+            "GPU": "N/A (GPU detection requires additional libraries)"
+        },
+        "Source": "Local Upload",
+        "BOMGeneration": {
+            "Timestamp": "2025-02-09T09:47:03.840840",
+            "Method": "Automated Extraction",
+            "GeneratedBy": "FastAPI System"
+        }
+    }
+}
