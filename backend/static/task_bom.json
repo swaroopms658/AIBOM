@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "ModelDetails": {
+        "Name": "task.ipynb",
+        "Version": "1.0",
+        "Type": "Software Model",
+        "Author": "Community",
+        "Licenses": [],
+        "Libraries": [
+            "matplotlib",
+            "sklearn",
+            "seaborn",
+            "numpy",
+            "pandas"
+        ],
+        "HardwareRequirements": {
+            "matplotlib": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "sklearn": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "seaborn": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "numpy": {
+                "CPU": "Any modern processor",
+                "RAM": "2GB minimum"
+            },
+            "pandas": {
+                "CPU": "Any modern processor",
+                "RAM": "4GB minimum"
+            }
+        },
+        "SystemSpecs": {
+            "CPU": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+            "RAM": "20 GB",
+            "GPU": "N/A (GPU detection requires additional libraries)"
+        },
+        "Source": "Local Upload",
+        "BOMGeneration": {
+            "Timestamp": "2025-02-09T09:18:50.026145",
+            "Method": "Automated Extraction",
+            "GeneratedBy": "FastAPI System"
+        },
+        "OtherReferences": [],
+        "Tags": []
+    }
+}

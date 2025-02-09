@@ -3,11 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import json
-import re
-import datetime
 import os
+import datetime
 import platform
 import psutil
+import ast  # For analyzing Python code
 
 app = FastAPI()
 
@@ -52,11 +52,67 @@ LIBRARY_HARDWARE_REQUIREMENTS = {
     "opencv": {"CPU": "Intel Core 2 Duo or higher", "RAM": "2GB (4GB recommended)", "GPU": "Not required"},
     "numpy": {"CPU": "Any modern processor", "RAM": "2GB minimum"},
     "pandas": {"CPU": "Any modern processor", "RAM": "4GB minimum"},
+    "transformers": {"CPU": "Intel i7 or AMD Ryzen 7+", "RAM": "16GB (32GB recommended)", "GPU": "NVIDIA RTX 2060+ or AMD Radeon RX 6600+"}
 }
 
 # ✅ Extract dependencies from Python code
-def extract_dependencies(file_content):
-    return list(set(re.findall(r'^(?:import|from) (\w+)', file_content, re.MULTILINE)))
+def extract_from_python_code(code):
+    """Extract dependencies from Python code."""
+    try:
+        tree = ast.parse(code)
+        dependencies = set()
+
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                for alias in node.names:
+                    dependencies.add(alias.name.split(".")[0])  # Extract top-level package
+            elif isinstance(node, ast.ImportFrom):
+                if node.module:
+                    dependencies.add(node.module.split(".")[0])
+
+        print(f"🔍 Extracted from Code: {dependencies}")  # Debugging print
+        return dependencies
+    except Exception as e:
+        print(f"❌ Error extracting dependencies: {e}")
+        return set()
+
+# ✅ Extract licenses
+def extract_licenses(file_content):
+    """
+    Extracts license information from the file content.
+    - If a license is found in the text, return it.
+    - If no license is found, return an empty list.
+    """
+    possible_licenses = ["MIT", "Apache-2.0", "GPL", "BSD", "MPL", "LGPL"]
+    found_licenses = []
+
+    for license_type in possible_licenses:
+        if license_type in file_content:
+            found_licenses.append(license_type)
+
+    return found_licenses
+
+def extract_dependencies(file_content, filename):
+    dependencies = set()
+    try:
+        if filename.endswith(".ipynb"):
+            notebook_data = json.loads(file_content)
+
+            print(f"📜 Notebook JSON Content:\n{json.dumps(notebook_data, indent=2)[:1000]}\n")  # Print first 1000 chars
+
+            for cell in notebook_data.get("cells", []):
+                if cell.get("cell_type") == "code":
+                    cell_source = "".join(cell.get("source", []))
+                    print(f"📌 Extracted Code from Notebook Cell:\n{cell_source}\n")  # Debugging print
+                    dependencies.update(extract_from_python_code(cell_source))
+        else:
+            dependencies.update(extract_from_python_code(file_content))
+        
+        print(f"✅ Extracted Dependencies: {dependencies}")
+        return list(dependencies)
+    except Exception as e:
+        print(f"❌ Error extracting dependencies: {e}")
+        return []
 
 # ✅ Determine author based on dependencies or model
 def determine_author(dependencies, model_name=""):
@@ -69,10 +125,7 @@ def determine_author(dependencies, model_name=""):
 
 # ✅ Check if the uploaded file is a pre-trained model
 def is_model_file(filename):
-<<<<<<< HEAD:main.py
-    return filename.endswith((".pt", ".bin", ".h5", ".onnx", ".pb",".ipynb"))
-=======
-    return filename.endswith((".pt", ".bin", ".h5", ".onnx", ".pb", ".ipynb"))
+    return filename.endswith((".pt", ".bin", ".h5", ".onnx", ".pb"))
 
 # ✅ Get hardware requirements
 def get_hardware_requirements(libraries):
@@ -85,7 +138,6 @@ def get_system_specs():
         "RAM": f"{round(psutil.virtual_memory().total / (1024**3))} GB",
         "GPU": "N/A (GPU detection requires additional libraries)"
     }
->>>>>>> 5c74bb5fb79523de12a1a37316df5794ea3f3078:backend/main.py
 
 # ✅ Upload & Process File
 @app.post("/upload")
@@ -93,13 +145,16 @@ async def upload_file(file: UploadFile = File(...)):
     try:
         content = await file.read()
         file_text = content.decode("utf-8", errors="ignore")
-        
-        dependencies = extract_dependencies(file_text) if not is_model_file(file.filename) else []
+
+        dependencies = extract_dependencies(file_text, file.filename) if not is_model_file(file.filename) else []
         model_name = os.path.splitext(file.filename)[0]
         author = determine_author(dependencies, model_name)
         hardware_requirements = get_hardware_requirements(dependencies)
         system_specs = get_system_specs()
         
+        # ✅ Extract license information
+        licenses = extract_licenses(file_text)
+
         # ✅ Create JSON structure
         result = {
             "$schema": "http://json-schema.org/draft-07/schema#",
@@ -108,7 +163,7 @@ async def upload_file(file: UploadFile = File(...)):
                 "Version": "1.0",
                 "Type": "Pre-trained Model" if is_model_file(file.filename) else "Software Model",
                 "Author": author,
-                "Licenses": ["MIT", "Apache-2.0"],
+                "Licenses": licenses,  # This will be [] if no licenses are found
                 "Libraries": dependencies,
                 "HardwareRequirements": hardware_requirements,
                 "SystemSpecs": system_specs,
@@ -137,12 +192,3 @@ async def upload_file(file: UploadFile = File(...)):
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
-# ✅ Endpoint to download JSON file
-@app.get("/download-json/{filename}")
-async def download_json(filename: str):
-    file_path = os.path.join(UPLOAD_DIR, filename)
-    if os.path.exists(file_path):
-        return FileResponse(file_path, media_type="application/json", filename=filename)
-    else:
-        raise HTTPException(status_code=404, detail="File not found")

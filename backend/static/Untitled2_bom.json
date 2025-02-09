@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "ModelDetails": {
+        "Name": "Untitled2.ipynb",
+        "Version": "1.0",
+        "Type": "Software Model",
+        "Author": "Community",
+        "Licenses": [
+            "MIT",
+            "Apache-2.0"
+        ],
+        "Libraries": [
+            "random",
+            "string",
+            "pandas"
+        ],
+        "HardwareRequirements": {
+            "random": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "string": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "pandas": {
+                "CPU": "Any modern processor",
+                "RAM": "4GB minimum"
+            }
+        },
+        "SystemSpecs": {
+            "CPU": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+            "RAM": "20 GB",
+            "GPU": "N/A (GPU detection requires additional libraries)"
+        },
+        "Source": "Local Upload",
+        "BOMGeneration": {
+            "Timestamp": "2025-02-09T09:16:06.549178",
+            "Method": "Automated Extraction",
+            "GeneratedBy": "FastAPI System"
+        },
+        "OtherReferences": [],
+        "Tags": []
+    }
+}

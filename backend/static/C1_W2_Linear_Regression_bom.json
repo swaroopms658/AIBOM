@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "ModelDetails": {
+        "Name": "C1_W2_Linear_Regression.ipynb",
+        "Version": "1.0",
+        "Type": "Pre-trained Model",
+        "Author": "Unknown",
+        "Licenses": [
+            "MIT",
+            "Apache-2.0"
+        ],
+        "Libraries": [],
+        "HardwareRequirements": {},
+        "SystemSpecs": {
+            "CPU": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+            "RAM": "20 GB",
+            "GPU": "N/A (GPU detection requires additional libraries)"
+        },
+        "Source": "Local Upload",
+        "BOMGeneration": {
+            "Timestamp": "2025-02-09T08:36:14.730751",
+            "Method": "Automated Extraction",
+            "GeneratedBy": "FastAPI System"
+        },
+        "OtherReferences": [],
+        "Tags": []
+    }
+}

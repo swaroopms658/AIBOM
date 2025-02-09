@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "ModelDetails": {
+        "Name": "test_license.ipynb",
+        "Version": "1.0",
+        "Type": "Software Model",
+        "Author": "Community",
+        "Licenses": [
+            "MIT"
+        ],
+        "Libraries": [
+            "numpy",
+            "pandas"
+        ],
+        "HardwareRequirements": {
+            "numpy": {
+                "CPU": "Any modern processor",
+                "RAM": "2GB minimum"
+            },
+            "pandas": {
+                "CPU": "Any modern processor",
+                "RAM": "4GB minimum"
+            }
+        },
+        "SystemSpecs": {
+            "CPU": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+            "RAM": "20 GB",
+            "GPU": "N/A (GPU detection requires additional libraries)"
+        },
+        "Source": "Local Upload",
+        "BOMGeneration": {
+            "Timestamp": "2025-02-09T09:23:59.013035",
+            "Method": "Automated Extraction",
+            "GeneratedBy": "FastAPI System"
+        },
+        "OtherReferences": [],
+        "Tags": []
+    }
+}
