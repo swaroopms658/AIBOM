@@ -1,26 +1,37 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "ModelDetails": {
-        "Name": "views.py",
+        "Name": "py_lab_jan_31.ipynb",
         "Version": "1.0",
         "Type": "Software Model",
         "Author": "Community",
         "Licenses": [],
         "Libraries": [
-            "django",
             "sklearn",
+            "seaborn",
+            "matplotlib",
+            "numpy",
             "pandas"
         ],
         "HardwareRequirements": {
-            "django": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
-            },
             "sklearn": {
                 "CPU": "Unknown",
                 "RAM": "Unknown",
                 "GPU": "Unknown"
+            },
+            "seaborn": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "matplotlib": {
+                "CPU": "Unknown",
+                "RAM": "Unknown",
+                "GPU": "Unknown"
+            },
+            "numpy": {
+                "CPU": "Any",
+                "RAM": "2GB+"
             },
             "pandas": {
                 "CPU": "Any",
@@ -28,13 +39,13 @@
             }
         },
         "SystemSpecs": {
-            "CPU": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
-            "RAM": "20 GB",
+            "CPU": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+            "RAM": "7 GB",
             "GPU": "N/A (GPU detection requires additional libraries)"
         },
         "Source": "Local Upload",
         "BOMGeneration": {
-            "Timestamp": "2025-02-09T09:52:00.591594",
+            "Timestamp": "2025-02-09T10:20:18.685669",
             "Method": "Automated Extraction",
             "GeneratedBy": "FastAPI System"
         }
