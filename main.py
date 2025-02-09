@@ -61,7 +61,7 @@ def determine_author(dependencies, model_name=""):
 
 # ✅ Check if the uploaded file is a pre-trained model
 def is_model_file(filename):
-    return filename.endswith((".pt", ".bin", ".h5", ".onnx", ".pb"))
+    return filename.endswith((".pt", ".bin", ".h5", ".onnx", ".pb",".ipynb"))
 
 # ✅ Upload & Process File
 @app.post("/upload")

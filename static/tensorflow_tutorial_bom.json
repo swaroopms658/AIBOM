@@ -1,9 +1,9 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "ModelDetails": {
-        "Name": "C1_W2_Linear_Regression.ipynb",
+        "Name": "tensorflow_tutorial.ipynb",
         "Version": "1.0",
-        "Type": "Pre-trained Model",
+        "Type": "Software Model",
         "Author": "Unknown",
         "Licenses": [
             "MIT",
@@ -12,7 +12,7 @@
         "Libraries": [],
         "Source": "Local Upload",
         "BOMGeneration": {
-            "Timestamp": "2025-02-08T11:05:12.904212",
+            "Timestamp": "2025-02-08T11:03:09.503321",
             "Method": "Automated Extraction",
             "GeneratedBy": "FastAPI System"
         },
