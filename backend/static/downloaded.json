@@ -1,60 +1,23 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "ModelDetails": {
-        "Name": "Internship.zip",
+        "Name": "views.py",
         "Version": "1.0",
-        "Type": "ZIP Archive",
+        "Type": "Software Model",
         "Author": "Community",
-        "Licenses": [
-            "GPL"
-        ],
+        "Licenses": [],
         "Libraries": [
-            "os",
-            "time",
-            "calendar",
-            "datetime",
-            "keyword",
-            "getpass",
-            "random",
-            "pandas",
-            "maths",
-            "math",
-            "numpy",
+            "django",
             "sklearn",
-            "matplotlib"
+            "pandas"
         ],
         "HardwareRequirements": {
-            "os": {
+            "django": {
                 "CPU": "Unknown",
                 "RAM": "Unknown",
                 "GPU": "Unknown"
             },
-            "time": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
-            },
-            "calendar": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
-            },
-            "datetime": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
-            },
-            "keyword": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
-            },
-            "getpass": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
-            },
-            "random": {
+            "sklearn": {
                 "CPU": "Unknown",
                 "RAM": "Unknown",
                 "GPU": "Unknown"
@@ -62,30 +25,6 @@
             "pandas": {
                 "CPU": "Any",
                 "RAM": "4GB+"
-            },
-            "maths": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
-            },
-            "math": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
-            },
-            "numpy": {
-                "CPU": "Any",
-                "RAM": "2GB+"
-            },
-            "sklearn": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
-            },
-            "matplotlib": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
             }
         },
         "SystemSpecs": {
@@ -95,7 +34,7 @@
         },
         "Source": "Local Upload",
         "BOMGeneration": {
-            "Timestamp": "2025-02-09T09:47:03.840840",
+            "Timestamp": "2025-02-09T09:52:00.591594",
             "Method": "Automated Extraction",
             "GeneratedBy": "FastAPI System"
         }
