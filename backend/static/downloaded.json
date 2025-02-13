@@ -1,51 +1,88 @@
 {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "ModelDetails": {
-        "Name": "py_lab_jan_31.ipynb",
+        "Name": "Internship.zip",
         "Version": "1.0",
-        "Type": "Software Model",
-        "Author": "Community",
-        "Licenses": [],
-        "Libraries": [
-            "seaborn",
-            "sklearn",
-            "matplotlib",
-            "pandas",
-            "numpy"
+        "Licenses": [
+            "GPL"
         ],
-        "HardwareRequirements": {
-            "seaborn": {
-                "CPU": "Any modern processor",
-                "RAM": "4GB minimum",
-                "GPU": "Not required"
+        "Libraries": [
+            "maths",
+            "os",
+            "matplotlib",
+            "datetime",
+            "pandas",
+            "keyword",
+            "random",
+            "numpy",
+            "getpass",
+            "calendar",
+            "math",
+            "time",
+            "sklearn"
+        ],
+        "VersionDetails": {
+            "maths": {
+                "UsedVersion": "Unknown",
+                "LatestVersion": "0.0.0"
             },
-            "sklearn": {
-                "CPU": "Unknown",
-                "RAM": "Unknown",
-                "GPU": "Unknown"
+            "os": {
+                "UsedVersion": "Unknown",
+                "LatestVersion": "Unknown"
             },
             "matplotlib": {
-                "CPU": "Any modern processor",
-                "RAM": "2GB minimum",
-                "GPU": "Not required"
+                "UsedVersion": "Unknown",
+                "LatestVersion": "3.10.0"
+            },
+            "datetime": {
+                "UsedVersion": "Unknown",
+                "LatestVersion": "5.5"
             },
             "pandas": {
-                "CPU": "Any modern processor",
-                "RAM": "4GB minimum"
+                "UsedVersion": "Unknown",
+                "LatestVersion": "2.2.3"
+            },
+            "keyword": {
+                "UsedVersion": "Unknown",
+                "LatestVersion": "Unknown"
+            },
+            "random": {
+                "UsedVersion": "Unknown",
+                "LatestVersion": "Unknown"
             },
             "numpy": {
-                "CPU": "Any modern processor",
-                "RAM": "2GB minimum"
+                "UsedVersion": "Unknown",
+                "LatestVersion": "2.2.2"
+            },
+            "getpass": {
+                "UsedVersion": "Unknown",
+                "LatestVersion": "Unknown"
+            },
+            "calendar": {
+                "UsedVersion": "Unknown",
+                "LatestVersion": "1.11.4"
+            },
+            "math": {
+                "UsedVersion": "Unknown",
+                "LatestVersion": "Unknown"
+            },
+            "time": {
+                "UsedVersion": "Unknown",
+                "LatestVersion": "1.0.0"
+            },
+            "sklearn": {
+                "UsedVersion": "Unknown",
+                "LatestVersion": "0.0.post12"
             }
         },
         "SystemSpecs": {
-            "CPU": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
-            "RAM": "7 GB",
+            "CPU": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+            "RAM": "20 GB",
             "GPU": "N/A (GPU detection requires additional libraries)"
         },
         "Source": "Local Upload",
         "BOMGeneration": {
-            "Timestamp": "2025-02-09T10:53:30.743211",
+            "Timestamp": "2025-02-13T13:16:42.023509",
             "Method": "Automated Extraction",
             "GeneratedBy": "FastAPI System"
         }
