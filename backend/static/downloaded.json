@@ -3,88 +3,66 @@
     "ModelDetails": {
         "Name": "Internship.zip",
         "Version": "1.0",
+        "Type": "ZIP Archive",
+        "Author": "Community",
         "Licenses": [
             "GPL"
         ],
         "Libraries": [
-            "maths",
-            "os",
             "matplotlib",
-            "datetime",
+            "scikit-learn",
             "pandas",
-            "keyword",
-            "random",
-            "numpy",
-            "getpass",
             "calendar",
-            "math",
-            "time",
-            "sklearn"
+            "os",
+            "random",
+            "datetime",
+            "getpass",
+            "numpy",
+            "keyword"
         ],
-        "VersionDetails": {
-            "maths": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "0.0.0"
-            },
-            "os": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "Unknown"
-            },
-            "matplotlib": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "3.10.0"
-            },
-            "datetime": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "5.5"
-            },
-            "pandas": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "2.2.3"
-            },
-            "keyword": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "Unknown"
-            },
-            "random": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "Unknown"
-            },
-            "numpy": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "2.2.2"
-            },
-            "getpass": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "Unknown"
-            },
-            "calendar": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "1.11.4"
-            },
-            "math": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "Unknown"
-            },
-            "time": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "1.0.0"
-            },
-            "sklearn": {
-                "UsedVersion": "Unknown",
-                "LatestVersion": "0.0.post12"
-            }
-        },
         "SystemSpecs": {
             "CPU": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
             "RAM": "20 GB",
-            "GPU": "N/A (GPU detection requires additional libraries)"
+            "GPU": "N/A (GPU detection requires additional libraries)",
+            "OS": "Windows 11"
         },
         "Source": "Local Upload",
         "BOMGeneration": {
-            "Timestamp": "2025-02-13T13:16:42.023509",
+            "Timestamp": "2025-02-14T14:57:40.635814+00:00",
             "Method": "Automated Extraction",
             "GeneratedBy": "FastAPI System"
+        }
+    },
+    "SecurityScans": {
+        "Trivy": {
+            "SchemaVersion": 2,
+            "CreatedAt": "2025-02-14T20:27:40.6216842+05:30",
+            "ArtifactName": "static/Internship.zip",
+            "ArtifactType": "filesystem",
+            "Metadata": {
+                "ImageConfig": {
+                    "architecture": "",
+                    "created": "0001-01-01T00:00:00Z",
+                    "os": "",
+                    "rootfs": {
+                        "type": "",
+                        "diff_ids": null
+                    },
+                    "config": {}
+                }
+            }
+        },
+        "NVD": {
+            "matplotlib": "NVD scan result placeholder (N/A)",
+            "scikit-learn": "NVD scan result placeholder (N/A)",
+            "pandas": "NVD scan result placeholder (N/A)",
+            "calendar": "NVD scan result placeholder (N/A)",
+            "os": "NVD scan result placeholder (N/A)",
+            "random": "NVD scan result placeholder (N/A)",
+            "datetime": "NVD scan result placeholder (N/A)",
+            "getpass": "NVD scan result placeholder (N/A)",
+            "numpy": "NVD scan result placeholder (N/A)",
+            "keyword": "NVD scan result placeholder (N/A)"
         }
     }
 }
