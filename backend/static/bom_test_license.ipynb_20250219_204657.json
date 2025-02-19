@@ -1,0 +1,49 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:b5a277b0-d7a0-4dd4-b0be-6ca3a085c04a",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-02-19T15:16:57.536794",
+    "component": {
+      "type": "application",
+      "bom-ref": "65219b0f-1cf1-4d81-89ee-51e6342040f3",
+      "name": "test_license.ipynb",
+      "version": "1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "da1b5f2506ac416bb84a29dc5aa3971d23b256462132d3aa884741d9d7c26775"
+        }
+      ]
+    },
+    "properties": [
+      {
+        "name": "system.cpu",
+        "value": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel"
+      },
+      {
+        "name": "system.ram",
+        "value": "20 GB"
+      },
+      {
+        "name": "system.os",
+        "value": "Windows 11"
+      },
+      {
+        "name": "system.python",
+        "value": "3.12.5"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "numpy",
+      "version": "2.2.3"
+    },
+    {
+      "name": "pandas",
+      "version": "2.2.3"
+    }
+  ]
+}
