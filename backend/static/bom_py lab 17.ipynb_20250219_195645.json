@@ -1,0 +1,40 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:496aa7e3-0eb6-4c7c-8864-e5db5454dec1",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-02-19T14:26:45.839003",
+    "component": {
+      "type": "application",
+      "bom-ref": "21415729-63ab-430e-ba79-1c9a10fb6674",
+      "name": "py lab 17.ipynb",
+      "version": "1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "0f74684845579dcf6734dcb2f3dc352c22b9b899f5a2e2b3198243fcf4770e37"
+        }
+      ]
+    },
+    "properties": [
+      {
+        "name": "system.cpu",
+        "value": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel"
+      },
+      {
+        "name": "system.ram",
+        "value": "20 GB"
+      },
+      {
+        "name": "system.os",
+        "value": "Windows 11"
+      },
+      {
+        "name": "system.python",
+        "value": "3.12.5"
+      }
+    ]
+  },
+  "components": []
+}

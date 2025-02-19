@@ -23,12 +23,13 @@ function App() {
       const response = await axios.post(
         "http://127.0.0.1:8000/upload",
         formData,
-        { headers: { "Content-Type": "multipart/form-data" } }
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
       );
 
       setJsonData(response.data.data);
-      setJsonFilename(response.data.json_file || "downloaded.json");
-      setFile(null);
+      setJsonFilename(response.data.filename);
     } catch (error) {
       console.error("Error uploading file:", error);
       alert("Failed to upload file. Please try again.");
@@ -43,58 +44,50 @@ function App() {
 
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/static/${jsonFilename}`,
+        `http://127.0.0.1:8000/download/${jsonFilename}`,
         { responseType: "blob" }
       );
 
-      const blob = new Blob([response.data], { type: "application/json" });
-      const url = window.URL.createObjectURL(blob);
+      const url = window.URL.createObjectURL(new Blob([response.data]));
       const a = document.createElement("a");
       a.href = url;
       a.download = jsonFilename;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      window.URL.revokeObjectURL(url);
     } catch (error) {
-      console.error("Error downloading file:", error);
       alert("Failed to download JSON file.");
     }
   };
 
   return (
     <div style={styles.container}>
-      {/* Title */}
-      <h1 style={styles.title}>AI Model BOM Generator</h1>
+      <div style={styles.title}>AI Model BOM Generator</div>
 
       <div style={styles.content}>
-        {/* Left Panel - Upload File */}
+        {/* Left Panel */}
         <div style={styles.panel}>
-          <h2 style={styles.header}>📂 Upload File</h2>
+          <h2 style={styles.header}>Upload File</h2>
           <input type="file" onChange={handleFileChange} style={styles.input} />
           <button onClick={handleUpload} style={styles.button}>
             Upload
           </button>
         </div>
 
-        {/* Center Panel - JSON Output */}
+        {/* Center Panel (JSON Output) */}
         <div style={styles.centerPanel}>
-          <h2 style={styles.header}>📜 JSON Output</h2>
-          <div style={styles.jsonBox}>
-            <pre>
-              {jsonData
-                ? JSON.stringify(jsonData, null, 2)
-                : "No JSON available"}
-            </pre>
-          </div>
+          <h2 style={styles.header}>JSON Output</h2>
+          <pre style={styles.jsonBox}>
+            {jsonData ? JSON.stringify(jsonData, null, 2) : "No JSON available"}
+          </pre>
         </div>
 
-        {/* Right Panel - Download JSON */}
+        {/* Right Panel (Download Button) */}
         <div style={styles.panel}>
-          <h2 style={styles.header}>⬇️ Download JSON</h2>
+          <h2 style={styles.header}>Download JSON</h2>
           <button
             onClick={handleDownload}
-            style={{ ...styles.button, opacity: jsonFilename ? 1 : 0.5 }}
+            style={styles.button}
             disabled={!jsonFilename}
           >
             Download JSON
@@ -105,7 +98,7 @@ function App() {
   );
 }
 
-// CSS styles
+// ✅ Styled Components
 const styles = {
   container: {
     width: "100vw",
@@ -113,8 +106,9 @@ const styles = {
     fontFamily: "'Inter', sans-serif",
     backgroundColor: "#F5F5F5",
     color: "#333",
-    overflow: "hidden",
     textAlign: "center",
+    display: "flex",
+    flexDirection: "column",
   },
   title: {
     fontSize: "28px",
@@ -126,7 +120,7 @@ const styles = {
   },
   content: {
     display: "flex",
-    height: "calc(100vh - 60px)", // Adjusting height after title
+    height: "calc(100vh - 60px)", // Adjust height to accommodate title bar
   },
   panel: {
     flex: 1,
