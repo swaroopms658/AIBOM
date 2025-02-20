@@ -24,7 +24,7 @@ This project provides a framework for generating Bill of Materials (BOM) for AI 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/ai-bom-framework.git
+   git clone https://github.com/swaroopms658/AIBOM.git
    cd ai-bom-framework/backend
    ```
 
