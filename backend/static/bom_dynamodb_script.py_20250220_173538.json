@@ -1,0 +1,53 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:35f166cd-e1d3-45c4-aac2-ca364e3ca07d",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-02-20T12:05:38.197243",
+    "component": {
+      "type": "application",
+      "bom-ref": "ee8694a7-18ff-4b74-9f0a-cf7f6c663c31",
+      "name": "dynamodb_script.py",
+      "version": "1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "ceb22bc876cb1576512e80388023a8d766b0f195dfa70f857cb6d9febc6d54f2"
+        }
+      ]
+    },
+    "properties": [
+      {
+        "name": "system.cpu",
+        "value": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD"
+      },
+      {
+        "name": "system.ram",
+        "value": "7 GB"
+      },
+      {
+        "name": "system.os",
+        "value": "Windows 11"
+      },
+      {
+        "name": "system.python",
+        "value": "3.12.0"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "paho",
+      "version": "Unknown"
+    },
+    {
+      "name": "boto3",
+      "version": "1.36.24"
+    },
+    {
+      "name": "json",
+      "version": "Unknown"
+    }
+  ]
+}
