@@ -9,6 +9,7 @@ import psutil
 import ast
 import requests
 import hashlib
+import zipfile
 from uuid import uuid4
 from datetime import datetime
 
@@ -25,7 +26,9 @@ app.add_middleware(
 
 # ✅ Ensure static directory exists
 UPLOAD_DIR = "static"
+EXTRACT_DIR = "extracted"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
+os.makedirs(EXTRACT_DIR, exist_ok=True)
 
 # ✅ Serve static files
 app.mount("/static", StaticFiles(directory=UPLOAD_DIR), name="static")
@@ -72,7 +75,7 @@ def get_system_specs():
         "RAM": f"{round(psutil.virtual_memory().total / (1024**3))} GB",
         "OS": f"{platform.system()} {platform.release()}",
         "Python": platform.python_version(),
-        "GPU": "N/A"  # Placeholder, can be improved with GPU detection
+        "GPU": "N/A"
     }
 
 # ✅ Get latest version from PyPI
@@ -94,18 +97,56 @@ def check_versions(dependencies):
         version_details[dep] = {"Version": latest_version}
     return version_details
 
+# ✅ Extract ZIP file contents
+def extract_zip(file_path):
+    extracted_folder = os.path.join(EXTRACT_DIR, os.path.splitext(os.path.basename(file_path))[0])
+    
+    # Ensure fresh extraction
+    if os.path.exists(extracted_folder):
+        import shutil
+        shutil.rmtree(extracted_folder)
+
+    os.makedirs(extracted_folder, exist_ok=True)
+
+    try:
+        with zipfile.ZipFile(file_path, "r") as zip_ref:
+            zip_ref.extractall(extracted_folder)
+        return extracted_folder
+    except zipfile.BadZipFile:
+        raise HTTPException(status_code=400, detail="Invalid ZIP file")
+
+# ✅ Process extracted files
+def process_extracted_files(extracted_folder):
+    dependencies = set()
+    
+    for root, _, files in os.walk(extracted_folder):
+        for file in files:
+            file_path = os.path.join(root, file)
+            try:
+                with open(file_path, "r", encoding="utf-8", errors="ignore") as f:
+                    file_content = f.read()
+                    dependencies.update(extract_dependencies(file_content, file))
+            except Exception as e:
+                print(f"❌ Skipping {file}: {e}")
+
+    return list(dependencies)
+
 # ✅ Upload & Process File
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
     try:
-        file_content = await file.read()
-        file_text = file_content.decode("utf-8", errors="ignore")  # ✅ Decode file content
-        
         file_path = os.path.join(UPLOAD_DIR, file.filename)
+        file_content = await file.read()
         with open(file_path, "wb") as f:
             f.write(file_content)
 
-        dependencies = extract_dependencies(file_text, file.filename)
+        # ✅ Handle ZIP files
+        if file.filename.endswith(".zip"):
+            extracted_folder = extract_zip(file_path)
+            dependencies = process_extracted_files(extracted_folder)
+        else:
+            dependencies = extract_dependencies(file_content.decode("utf-8", errors="ignore"), file.filename)
+
         version_details = check_versions(dependencies)
         system_specs = get_system_specs()
 

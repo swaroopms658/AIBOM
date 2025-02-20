@@ -1,0 +1,93 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "serialNumber": "urn:uuid:5ddfa1c9-34e8-4447-9e6b-5b11549f1ab7",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-02-20T12:41:59.381980",
+    "component": {
+      "type": "application",
+      "bom-ref": "77054085-c501-4da0-a056-b019bae2846f",
+      "name": "Internship.zip",
+      "version": "1.0",
+      "hashes": [
+        {
+          "alg": "SHA-256",
+          "content": "99b346092fb40b228ffc08fddbfaf137280bf49137c8addfe626e57985f2049d"
+        }
+      ]
+    },
+    "properties": [
+      {
+        "name": "system.cpu",
+        "value": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel"
+      },
+      {
+        "name": "system.ram",
+        "value": "20 GB"
+      },
+      {
+        "name": "system.os",
+        "value": "Windows 11"
+      },
+      {
+        "name": "system.python",
+        "value": "3.12.5"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "matplotlib",
+      "version": "3.10.0"
+    },
+    {
+      "name": "calendar",
+      "version": "1.11.4"
+    },
+    {
+      "name": "random",
+      "version": "Unknown"
+    },
+    {
+      "name": "getpass",
+      "version": "Unknown"
+    },
+    {
+      "name": "os",
+      "version": "Unknown"
+    },
+    {
+      "name": "keyword",
+      "version": "Unknown"
+    },
+    {
+      "name": "time",
+      "version": "1.0.0"
+    },
+    {
+      "name": "numpy",
+      "version": "2.2.3"
+    },
+    {
+      "name": "pandas",
+      "version": "2.2.3"
+    },
+    {
+      "name": "datetime",
+      "version": "5.5"
+    },
+    {
+      "name": "maths",
+      "version": "0.0.0"
+    },
+    {
+      "name": "math",
+      "version": "Unknown"
+    },
+    {
+      "name": "sklearn",
+      "version": "0.0.post12"
+    }
+  ]
+}
