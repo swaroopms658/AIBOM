@@ -1,6 +1,15 @@
 # AI BOM Framework
 
-This project provides a framework for generating Bill of Materials (BOM) for AI projects. It includes a FastAPI backend for processing files and generating BOMs in CycloneDX format, and a React frontend for uploading files and downloading the generated BOMs.Also integrated with security vulnerability scans using model scan
+AI BOM Framework
+
+This project provides a comprehensive framework for generating Bill of Materials (BOM) for AI projects. It includes:
+
+FastAPI Backend:
+Processes file uploads and extracts dependencies to generate BOMs in CycloneDX format.
+React Frontend:
+Allows users to easily upload files and download the generated BOMs.
+Security Vulnerability Scans:
+Integrated with the modelscan tool to perform security vulnerability scans on AI models, ensuring that potential risks (such as unsafe operations) are detected and reported.
 
 ## Features
 
