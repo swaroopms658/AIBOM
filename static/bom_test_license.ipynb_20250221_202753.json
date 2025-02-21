@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "ModelDetails": {
+    "Name": "test_license.ipynb",
+    "Version": "1.0",
+    "Licenses": [
+      "MIT"
+    ],
+    "Libraries": [
+      "numpy",
+      "pandas"
+    ],
+    "VersionDetails": {
+      "numpy": {
+        "Version": "2.2.3"
+      },
+      "pandas": {
+        "Version": "2.2.3"
+      }
+    },
+    "SystemSpecs": {
+      "CPU": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+      "RAM": "20 GB",
+      "OS": "Windows 11",
+      "Python": "3.12.5",
+      "GPU": "N/A"
+    },
+    "Source": "Local Upload",
+    "BOMGeneration": {
+      "Timestamp": "2025-02-21T14:57:53.847000",
+      "Method": "Automated Extraction",
+      "GeneratedBy": "FastAPI System"
+    }
+  }
+}

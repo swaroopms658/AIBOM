@@ -10,31 +10,31 @@ import ast
 import requests
 import hashlib
 import zipfile
-from uuid import uuid4
+import shutil
 from datetime import datetime
+import subprocess
+import re
+import importlib.util
+import pkg_resources
 
 app = FastAPI()
 
-# ✅ Enable CORS for frontend communication
+# --- CORS and Static Files ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Change this to specific domains if needed
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ✅ Ensure static directory exists
-UPLOAD_DIR = "static"
-EXTRACT_DIR = "extracted"
+UPLOAD_DIR = r"C:\Users\Sriram\Desktop\AI_BOM_Framework\static"
+EXTRACT_DIR = r"C:\Users\Sriram\Desktop\AI_BOM_Framework\extracted"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(EXTRACT_DIR, exist_ok=True)
-
-# ✅ Serve static files
 app.mount("/static", StaticFiles(directory=UPLOAD_DIR), name="static")
 
-# ✅ Extract dependencies from Python code
-def extract_from_python_code(code):
+def extract_from_python_code(code: str) -> set:
     try:
         tree = ast.parse(code)
         dependencies = set()
@@ -47,67 +47,72 @@ def extract_from_python_code(code):
                     dependencies.add(node.module.split(".")[0])
         return dependencies
     except Exception as e:
-        print(f"❌ Error extracting dependencies: {e}")
+        print(f"Error extracting dependencies: {e}")
         return set()
 
-# ✅ Extract dependencies based on file type
-def extract_dependencies(file_content, filename):
+def extract_licenses(file_content: str) -> list:
+    possible_licenses = ["MIT", "Apache-2.0", "GPL", "BSD", "MPL", "LGPL"]
+    return [lic for lic in possible_licenses if lic in file_content]
+
+def extract_dependencies(file_content: str, filename: str) -> list:
     dependencies = set()
     try:
         if filename.endswith(".ipynb"):
             notebook_data = json.loads(file_content)
             for cell in notebook_data.get("cells", []):
                 if cell.get("cell_type") == "code":
-                    dependencies.update(
-                        extract_from_python_code("".join(cell.get("source", [])))
-                    )
+                    dependencies.update(extract_from_python_code("".join(cell.get("source", []))))
         else:
             dependencies.update(extract_from_python_code(file_content))
         return list(dependencies)
     except Exception as e:
-        print(f"❌ Error extracting dependencies: {e}")
+        print(f"Error extracting dependencies: {e}")
         return []
 
-# ✅ Get system hardware specs
-def get_system_specs():
-    return {
+def get_system_specs() -> dict:
+    specs = {
         "CPU": platform.processor(),
         "RAM": f"{round(psutil.virtual_memory().total / (1024**3))} GB",
         "OS": f"{platform.system()} {platform.release()}",
         "Python": platform.python_version(),
         "GPU": "N/A"
     }
+    try:
+        import torch
+        if torch.cuda.is_available():
+            specs["GPU"] = torch.cuda.get_device_name(0)
+    except ImportError:
+        try:
+            import tensorflow as tf
+            gpus = tf.config.list_physical_devices('GPU')
+            if gpus:
+                specs["GPU"] = f"Found {len(gpus)} GPU(s)"
+        except ImportError:
+            pass
+    return specs
 
-# ✅ Get latest version from PyPI
-def get_latest_version(package_name):
+def get_latest_version(package_name: str) -> str:
     try:
         response = requests.get(f"https://pypi.org/pypi/{package_name}/json", timeout=10)
         if response.status_code == 200:
             data = response.json()
             return data["info"].get("version", "Unknown")
     except Exception as e:
-        print(f"❌ Error fetching version for {package_name}: {e}")
+        print(f"Error fetching version for {package_name}: {e}")
     return "Unknown"
 
-# ✅ Check versions
-def check_versions(dependencies):
+def check_versions(dependencies: list) -> dict:
     version_details = {}
     for dep in dependencies:
         latest_version = get_latest_version(dep)
         version_details[dep] = {"Version": latest_version}
     return version_details
 
-# ✅ Extract ZIP file contents
-def extract_zip(file_path):
+def extract_zip(file_path: str) -> str:
     extracted_folder = os.path.join(EXTRACT_DIR, os.path.splitext(os.path.basename(file_path))[0])
-    
-    # Ensure fresh extraction
     if os.path.exists(extracted_folder):
-        import shutil
         shutil.rmtree(extracted_folder)
-
     os.makedirs(extracted_folder, exist_ok=True)
-
     try:
         with zipfile.ZipFile(file_path, "r") as zip_ref:
             zip_ref.extractall(extracted_folder)
@@ -115,10 +120,8 @@ def extract_zip(file_path):
     except zipfile.BadZipFile:
         raise HTTPException(status_code=400, detail="Invalid ZIP file")
 
-# ✅ Process extracted files
-def process_extracted_files(extracted_folder):
+def process_extracted_files(extracted_folder: str) -> list:
     dependencies = set()
-    
     for root, _, files in os.walk(extracted_folder):
         for file in files:
             file_path = os.path.join(root, file)
@@ -127,73 +130,83 @@ def process_extracted_files(extracted_folder):
                     file_content = f.read()
                     dependencies.update(extract_dependencies(file_content, file))
             except Exception as e:
-                print(f"❌ Skipping {file}: {e}")
-
+                print(f"Skipping {file}: {e}")
     return list(dependencies)
 
-# ✅ Upload & Process File
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
     try:
-        file_path = os.path.join(UPLOAD_DIR, file.filename)
         file_content = await file.read()
+        file_text = file_content.decode("utf-8", errors="ignore")
+        file_path = os.path.join(UPLOAD_DIR, file.filename)
         with open(file_path, "wb") as f:
             f.write(file_content)
 
-        # ✅ Handle ZIP files
         if file.filename.endswith(".zip"):
             extracted_folder = extract_zip(file_path)
             dependencies = process_extracted_files(extracted_folder)
         else:
-            dependencies = extract_dependencies(file_content.decode("utf-8", errors="ignore"), file.filename)
+            dependencies = extract_dependencies(file_text, file.filename)
 
+        licenses = extract_licenses(file_text)
         version_details = check_versions(dependencies)
         system_specs = get_system_specs()
 
-        # ✅ Calculate file hash
-        file_hash = hashlib.sha256(file_content).hexdigest()
-
-        # ✅ Create CycloneDX BOM
         bom_filename = f"bom_{file.filename}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
         bom_path = os.path.join(UPLOAD_DIR, bom_filename)
         cyclonedx_bom = {
-            "bomFormat": "CycloneDX",
-            "specVersion": "1.4",
-            "serialNumber": f"urn:uuid:{uuid4()}",
-            "version": 1,
-            "metadata": {
-                "timestamp": datetime.utcnow().isoformat(),
-                "component": {
-                    "type": "application",
-                    "bom-ref": str(uuid4()),
-                    "name": file.filename,
-                    "version": "1.0",
-                    "hashes": [{"alg": "SHA-256", "content": file_hash}]
-                },
-                "properties": [
-                    {"name": "system.cpu", "value": system_specs["CPU"]},
-                    {"name": "system.ram", "value": system_specs["RAM"]},
-                    {"name": "system.os", "value": system_specs["OS"]},
-                    {"name": "system.python", "value": system_specs["Python"]}
-                ]
-            },
-            "components": [
-                {"name": dep, "version": version_details[dep].get("Version", "Unknown")}
-                for dep in dependencies
-            ],
+            "$schema": "http://json-schema.org/draft-07/schema#",
+            "ModelDetails": {
+                "Name": file.filename,
+                "Version": "1.0",
+                "Licenses": licenses,
+                "Libraries": dependencies,
+                "VersionDetails": version_details,
+                "SystemSpecs": system_specs,
+                "Source": "Local Upload",
+                "BOMGeneration": {
+                    "Timestamp": datetime.utcnow().isoformat(),
+                    "Method": "Automated Extraction",
+                    "GeneratedBy": "FastAPI System"
+                }
+            }
         }
-        with open(bom_path, 'w') as f:
+        with open(bom_path, "w") as f:
             json.dump(cyclonedx_bom, f, indent=2)
 
         return {"message": "File processed successfully", "filename": bom_filename, "data": cyclonedx_bom}
-
     except Exception as e:
+        print(f"Error processing file: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error generating BOM: {str(e)}")
 
-# ✅ Download BOM file
 @app.get("/download/{filename}")
 async def download_file(filename: str):
     file_path = os.path.join(UPLOAD_DIR, filename)
     if not os.path.exists(file_path):
         raise HTTPException(status_code=404, detail="File not found")
-    return FileResponse(file_path, media_type='application/json', filename=filename)
+    return FileResponse(file_path, media_type="application/json", filename=filename)
+
+# Model scan by file path endpoint
+@app.post("/scan-model-path")
+async def scan_model_path(payload: dict):
+    file_path = payload.get("file_path")
+    if not file_path or not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="File not found")
+    try:
+        command = ["modelscan", "-p", file_path]
+        result = subprocess.run(command, capture_output=True, text=True)
+        print("STDOUT:", result.stdout)
+        print("STDERR:", result.stderr)
+        # Check if stdout is not empty even if returncode is non-zero
+        if result.returncode != 0 and not result.stdout.strip():
+            raise HTTPException(status_code=500, detail=f"Model scan failed: {result.stderr}")
+        return {"message": "Model scan completed", "scanOutput": result.stdout}
+    except Exception as e:
+        print(f"Error scanning model file: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error scanning model file: {str(e)}")
+
+
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

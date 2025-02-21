@@ -5,49 +5,49 @@ function App() {
   const [jsonData, setJsonData] = useState(null);
   const [jsonFilename, setJsonFilename] = useState("");
   const [file, setFile] = useState(null);
+  const [showNext, setShowNext] = useState(false);
+  const [scanOutput, setScanOutput] = useState("");
+  const [filePath, setFilePath] = useState("");
 
+  // Handler for BOM file selection
   const handleFileChange = (event) => {
     setFile(event.target.files[0]);
   };
 
+  // Upload BOM file to backend
   const handleUpload = async () => {
     if (!file) {
       alert("Please select a file first.");
       return;
     }
-
     const formData = new FormData();
     formData.append("file", file);
-
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/upload",
         formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
+        { headers: { "Content-Type": "multipart/form-data" } }
       );
-
       setJsonData(response.data.data);
       setJsonFilename(response.data.filename);
+      setFile(null);
     } catch (error) {
       console.error("Error uploading file:", error);
       alert("Failed to upload file. Please try again.");
     }
   };
 
+  // Download generated JSON file
   const handleDownload = async () => {
     if (!jsonFilename) {
       alert("No JSON file available for download.");
       return;
     }
-
     try {
       const response = await axios.get(
         `http://127.0.0.1:8000/download/${jsonFilename}`,
         { responseType: "blob" }
       );
-
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const a = document.createElement("a");
       a.href = url;
@@ -60,45 +60,105 @@ function App() {
     }
   };
 
+  // Show the next section (model scan options)
+  const handleNext = () => {
+    setShowNext(true);
+  };
+
+  // Handler for file path input change
+  const handleFilePathChange = (event) => {
+    setFilePath(event.target.value);
+  };
+
+  // Call the backend to perform auto-scan by file path
+  const handleAutoScan = async () => {
+    if (!filePath) {
+      alert("Please enter a file path.");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        "http://127.0.0.1:8000/scan-model-path",
+        { file_path: filePath }
+      );
+      setScanOutput(response.data.scanOutput);
+      setFilePath("");
+    } catch (error) {
+      console.error("Error scanning model file:", error);
+      alert("Failed to scan model file. Please try again.");
+    }
+  };
+
   return (
     <div style={styles.container}>
-      <div style={styles.title}>AI Model BOM Generator</div>
-
-      <div style={styles.content}>
-        {/* Left Panel */}
-        <div style={styles.panel}>
-          <h2 style={styles.header}>Upload File</h2>
-          <input type="file" onChange={handleFileChange} style={styles.input} />
-          <button onClick={handleUpload} style={styles.button}>
-            Upload
-          </button>
+      <h1 style={styles.title}>AI Model BOM Generator</h1>
+      {!showNext && (
+        <div style={styles.content}>
+          {/* Upload BOM File Section */}
+          <div style={styles.panel}>
+            <h2 style={styles.header}>📂 Upload BOM File</h2>
+            <input
+              type="file"
+              onChange={handleFileChange}
+              style={styles.input}
+            />
+            <button onClick={handleUpload} style={styles.button}>
+              Upload
+            </button>
+          </div>
+          {/* JSON Output Section */}
+          <div style={styles.centerPanel}>
+            <h2 style={styles.header}>📜 JSON Output</h2>
+            <div style={styles.jsonBox}>
+              <pre>
+                {jsonData
+                  ? JSON.stringify(jsonData, null, 2)
+                  : "No JSON available"}
+              </pre>
+            </div>
+          </div>
+          {/* Download JSON & NEXT Button Section */}
+          <div style={styles.panel}>
+            <h2 style={styles.header}>⬇️ Download JSON</h2>
+            <button
+              onClick={handleDownload}
+              style={{ ...styles.button, opacity: jsonFilename ? 1 : 0.5 }}
+              disabled={!jsonFilename}
+            >
+              Download JSON
+            </button>
+            <button onClick={handleNext} style={styles.button}>
+              NEXT
+            </button>
+          </div>
         </div>
-
-        {/* Center Panel (JSON Output) */}
-        <div style={styles.centerPanel}>
-          <h2 style={styles.header}>JSON Output</h2>
-          <pre style={styles.jsonBox}>
-            {jsonData ? JSON.stringify(jsonData, null, 2) : "No JSON available"}
-          </pre>
+      )}
+      {/* Model Scan Options Section */}
+      {showNext && (
+        <div style={styles.nextContainer}>
+          <div style={styles.scanSection}>
+            <h3 style={styles.subHeader}>Auto Scan by File Path</h3>
+            <input
+              type="text"
+              value={filePath}
+              onChange={handleFilePathChange}
+              style={styles.input}
+              placeholder="Enter full file path"
+            />
+            <button onClick={handleAutoScan} style={styles.button}>
+              Auto Scan
+            </button>
+          </div>
+          <div style={styles.scanOutput}>
+            <h3 style={styles.header}>Model Scan Output</h3>
+            <pre>{scanOutput || "No scan output available"}</pre>
+          </div>
         </div>
-
-        {/* Right Panel (Download Button) */}
-        <div style={styles.panel}>
-          <h2 style={styles.header}>Download JSON</h2>
-          <button
-            onClick={handleDownload}
-            style={styles.button}
-            disabled={!jsonFilename}
-          >
-            Download JSON
-          </button>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
 
-// ✅ Styled Components
 const styles = {
   container: {
     width: "100vw",
@@ -106,9 +166,8 @@ const styles = {
     fontFamily: "'Inter', sans-serif",
     backgroundColor: "#F5F5F5",
     color: "#333",
+    overflow: "hidden",
     textAlign: "center",
-    display: "flex",
-    flexDirection: "column",
   },
   title: {
     fontSize: "28px",
@@ -120,7 +179,7 @@ const styles = {
   },
   content: {
     display: "flex",
-    height: "calc(100vh - 60px)", // Adjust height to accommodate title bar
+    height: "calc(100vh - 60px)",
   },
   panel: {
     flex: 1,
@@ -178,11 +237,37 @@ const styles = {
     borderRadius: "5px",
     border: "1px solid #CCC",
     marginTop: "10px",
+    width: "80%",
   },
   header: {
     fontSize: "22px",
     fontWeight: "bold",
     marginBottom: "10px",
+  },
+  subHeader: {
+    fontSize: "18px",
+    marginBottom: "8px",
+  },
+  nextContainer: {
+    marginTop: "20px",
+    padding: "20px",
+    textAlign: "center",
+  },
+  scanSection: {
+    marginBottom: "20px",
+  },
+  scanOutput: {
+    marginTop: "20px",
+    backgroundColor: "#333",
+    color: "#fff",
+    padding: "20px",
+    fontFamily: "monospace",
+    fontSize: "14px",
+    borderRadius: "8px",
+    maxHeight: "50vh",
+    overflowY: "auto",
+    width: "80%",
+    margin: "0 auto",
   },
 };
 
