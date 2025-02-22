@@ -28,8 +28,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-UPLOAD_DIR = r"C:\Users\darsh\Downloads\upload"
-EXTRACT_DIR = r"C:\Users\darsh\Downloads\extracted"
+UPLOAD_DIR = r"C:\Users\Sriram\Downloads\upload"
+EXTRACT_DIR = r"C:\Users\Sriram\Downloads\extracted"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(EXTRACT_DIR, exist_ok=True)
 app.mount("/static", StaticFiles(directory=UPLOAD_DIR), name="static")

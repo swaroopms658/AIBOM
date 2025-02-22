@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "./App.css"; 
-
+import "./App.css";
 
 function App() {
   const [jsonData, setJsonData] = useState(null);
@@ -12,7 +11,6 @@ function App() {
   const [filePath, setFilePath] = useState("");
   const [pulsateNext, setPulsateNext] = useState(false);
   const [pulsatePrev, setPulsatePrev] = useState(false);
-
 
   // Handler for BOM file selection
   const handleFileChange = (event) => {
@@ -49,9 +47,12 @@ function App() {
       return;
     }
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/download/${jsonFilename}`, {
-        responseType: "blob",
-      });
+      const response = await axios.get(
+        `http://127.0.0.1:8000/download/${jsonFilename}`,
+        {
+          responseType: "blob",
+        }
+      );
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const a = document.createElement("a");
       a.href = url;
@@ -65,29 +66,27 @@ function App() {
     } catch (error) {
       alert("Failed to download JSON file.");
     }
-  };  
+  };
 
   // Show the next section (model scan options)
   const handleNext = () => {
     setShowNext(true);
     setPulsateNext(false); // ✅ Stop ripple effect
-  };  
+  };
 
   const handlePrevious = () => {
     setShowNext(false);
-  };  
-  
+  };
 
   // Handler for file path input change
   const handleFilePathChange = (event) => {
     let inputPath = event.target.value;
     // Remove surrounding quotes if present
-    if (inputPath.startsWith("\"") && inputPath.endsWith("\"")) {
+    if (inputPath.startsWith('"') && inputPath.endsWith('"')) {
       inputPath = inputPath.slice(1, -1);
     }
     setFilePath(inputPath);
   };
-  
 
   // Call the backend to perform auto-scan by file path
   const handleAutoScan = async () => {
@@ -116,7 +115,7 @@ function App() {
         <div style={styles.content}>
           {/* Upload BOM File Section */}
           <div style={styles.panel}>
-            <h2 style={styles.header}>📂 Upload BOM File</h2>
+            <h2 style={styles.header}>📂 Upload Project</h2>
             <input
               type="file"
               onChange={handleFileChange}
@@ -148,7 +147,11 @@ function App() {
               Download JSON
             </button>
             <br></br>
-            <div className={`pulsating-button-container ${pulsateNext ? "pulsating" : ""}`}>
+            <div
+              className={`pulsating-button-container ${
+                pulsateNext ? "pulsating" : ""
+              }`}
+            >
               <button onClick={handleNext} className="button next-button">
                 NEXT
               </button>
@@ -168,9 +171,14 @@ function App() {
               style={styles.input}
               placeholder="e.g., C:\Users\Username\model.pkl"
             />
-            <button 
-              onClick={handleAutoScan} 
-              style={{ width: "150px", padding: "8px 16px", fontSize: "14px", marginLeft: "20px" }} 
+            <button
+              onClick={handleAutoScan}
+              style={{
+                width: "150px",
+                padding: "8px 16px",
+                fontSize: "14px",
+                marginLeft: "20px",
+              }}
               className="button"
             >
               Auto Scan
@@ -179,8 +187,13 @@ function App() {
           <div style={styles.scanOutput}>
             <h3 style={styles.header}>Model Scan Output</h3>
             <pre>{scanOutput || "No scan output available"}</pre>
-          </div><br></br>
-          <div className={`pulsating-button-container-prev ${pulsatePrev ? "pulsating" : ""}`}>
+          </div>
+          <br></br>
+          <div
+            className={`pulsating-button-container-prev ${
+              pulsatePrev ? "pulsating" : ""
+            }`}
+          >
             <button onClick={handlePrevious} className="button prev-button">
               Previous
             </button>
