@@ -1,32 +1,3 @@
-/* Pulsating glow effect (subtle outer glow) */
-@keyframes pulse {
-  0% {
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
-  }
-  100% {
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }
-}
-
-/* Circular pulse effect from button center */
-@keyframes pulseEffect {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0.6;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.6);
-    opacity: 0.3;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 0;
-  }
-}
-
 /* Button base styling */
 .button {
   background-color: #007bff;
@@ -36,28 +7,54 @@
   cursor: pointer;
   border-radius: 8px;
   font-size: 16px;
-  width: 80%;
+  width: 150px;
+  position: relative;
+  overflow: hidden;
   transition: all 0.3s;
-  position: relative; /* Important for pseudo-elements */
-  overflow: hidden; /* Ensures the pulse effect stays within the button */
+  z-index: 2; /* Ensures button is on top */
 }
 
-/* Apply the glow effect */
-.pulsatingButton {
-  animation: pulse 1.5s infinite;
+/* Ripple effect container (hidden by default) */
+.next-button-container {
+  position: relative;
+  display: inline-block;
 }
 
-/* Add circular pulse animation */
+/* Apply ripple effect only when activated */
+.pulsatingButton::before,
 .pulsatingButton::after {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 150%;
-  height: 150%;
-  background: rgba(128, 128, 128, 0.3); /* Greyish pulse */
-  border-radius: 50%;
-  transform: translate(-50%, -50%) scale(2);
+  width: 200px; /* Fixed width to ensure a perfect circle */
+  height: 200px; /* Same as width */
+  background: rgba(128, 128, 128, 0.3); /* Greyish ripple */
+  border-radius: 50%; /* Ensures a perfect circle */
+  transform: translate(-50%, -50%) scale(1);
   opacity: 0;
-  animation: pulseEffect 1.5s infinite;
+  animation: rippleEffect 1.5s infinite;
+  z-index: 0; /* Pushes effect behind the button */
+  pointer-events: none; /* Allows clicking other buttons */
+}
+
+/* Second ripple wave for a better effect */
+.pulsatingButton::after {
+  animation-delay: 0.75s;
+}
+
+/* Keyframes for ripple animation */
+@keyframes rippleEffect {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0;
+  }
 }

@@ -58,7 +58,9 @@ function App() {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      setPulsateNext(true); // Enable pulsating effect
+      setTimeout(() => {
+        setPulsateNext(true); // ✅ Delay ripple effect slightly
+      }, 500);
     } catch (error) {
       alert("Failed to download JSON file.");
     }
@@ -67,8 +69,8 @@ function App() {
   // Show the next section (model scan options)
   const handleNext = () => {
     setShowNext(true);
-    setPulsateNext(false);  // Stop the pulsating effect
-  };
+    setPulsateNext(false); // ✅ Stop ripple effect
+  };  
 
   const handlePrevious = () => {
     setShowNext(false);
@@ -77,8 +79,14 @@ function App() {
 
   // Handler for file path input change
   const handleFilePathChange = (event) => {
-    setFilePath(event.target.value);
+    let inputPath = event.target.value;
+    // Remove surrounding quotes if present
+    if (inputPath.startsWith("\"") && inputPath.endsWith("\"")) {
+      inputPath = inputPath.slice(1, -1);
+    }
+    setFilePath(inputPath);
   };
+  
 
   // Call the backend to perform auto-scan by file path
   const handleAutoScan = async () => {
@@ -137,12 +145,12 @@ function App() {
             >
               Download JSON
             </button>
-            <button
-              onClick={handleNext}
-              className={`button ${pulsateNext ? "pulsatingButton" : ""}`}
-            >
-              NEXT
-            </button>
+            <br></br>
+            <div className={`next-button-container ${pulsateNext ? "pulsatingButton" : ""}`}>
+              <button onClick={handleNext} className="button">
+                NEXT
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -156,7 +164,7 @@ function App() {
               value={filePath}
               onChange={handleFilePathChange}
               style={styles.input}
-              placeholder="e.g., C:\\Users\\Username\\model.pkl"
+              placeholder="e.g., C:\Users\Username\model.pkl"
             />
             <button onClick={handleAutoScan} style={styles.button}>
               Auto Scan
