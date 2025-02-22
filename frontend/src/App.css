@@ -1,42 +1,70 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+/* === Regular Button Styling (For Normal Buttons Like "Download JSON") === */
+.button,
+.next-button,
+.prev-button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 200px; /* Ensures consistent button size */
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s;
+  z-index: 2;
   text-align: center;
+  display: inline-block;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* === Pulsating Button Container (For Buttons Like "NEXT") === */
+.pulsating-button-container,
+.pulsating-button-container-prev {
+  position: relative;
+  display: inline-block;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* === Apply Ripple Effect Only When Activated === */
+.pulsating-button-container.pulsating::before,
+.pulsating-button-container.pulsating::after,
+.pulsating-button-container-prev.pulsating::before,
+.pulsating-button-container-prev.pulsating::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  background: rgba(128, 128, 128, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 0;
+  animation: rippleEffect 1.5s infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* === Second Ripple Wave for a Better Effect === */
+.pulsating-button-container.pulsating::after,
+.pulsating-button-container-prev.pulsating::after {
+  animation-delay: 0.75s;
+}
+
+/* === Keyframes for Ripple Animation === */
+@keyframes rippleEffect {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(4);
+    opacity: 0;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
