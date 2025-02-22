@@ -11,6 +11,7 @@ function App() {
   const [scanOutput, setScanOutput] = useState("");
   const [filePath, setFilePath] = useState("");
   const [pulsateNext, setPulsateNext] = useState(false);
+  const [pulsatePrev, setPulsatePrev] = useState(false);
 
 
   // Handler for BOM file selection
@@ -101,6 +102,7 @@ function App() {
       );
       setScanOutput(response.data.scanOutput);
       setFilePath("");
+      setPulsatePrev(true);
     } catch (error) {
       console.error("Error scanning model file:", error);
       alert("Failed to scan model file. Please try again.");
@@ -146,8 +148,8 @@ function App() {
               Download JSON
             </button>
             <br></br>
-            <div className={`next-button-container ${pulsateNext ? "pulsatingButton" : ""}`}>
-              <button onClick={handleNext} className="button">
+            <div className={`pulsating-button-container ${pulsateNext ? "pulsating" : ""}`}>
+              <button onClick={handleNext} className="button next-button">
                 NEXT
               </button>
             </div>
@@ -173,8 +175,12 @@ function App() {
           <div style={styles.scanOutput}>
             <h3 style={styles.header}>Model Scan Output</h3>
             <pre>{scanOutput || "No scan output available"}</pre>
+          </div><br></br>
+          <div className={`pulsating-button-container-prev ${pulsatePrev ? "pulsating" : ""}`}>
+            <button onClick={handlePrevious} className="button prev-button">
+              Previous
+            </button>
           </div>
-          <button onClick={handlePrevious} style={{ ...styles.button, width: "15%" }}>Previous</button>
         </div>
       )}
     </div>

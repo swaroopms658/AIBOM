@@ -1,5 +1,7 @@
-/* Button base styling */
-.button {
+/* === Regular Button Styling (For Normal Buttons Like "Download JSON") === */
+.button,
+.next-button,
+.prev-button {
   background-color: #007bff;
   color: white;
   padding: 12px 20px;
@@ -7,43 +9,49 @@
   cursor: pointer;
   border-radius: 8px;
   font-size: 16px;
-  width: 150px;
+  width: 200px; /* Ensures consistent button size */
   position: relative;
   overflow: hidden;
   transition: all 0.3s;
-  z-index: 2; /* Ensures button is on top */
+  z-index: 2;
+  text-align: center;
+  display: inline-block;
 }
 
-/* Ripple effect container (hidden by default) */
-.next-button-container {
+/* === Pulsating Button Container (For Buttons Like "NEXT") === */
+.pulsating-button-container,
+.pulsating-button-container-prev {
   position: relative;
   display: inline-block;
 }
 
-/* Apply ripple effect only when activated */
-.pulsatingButton::before,
-.pulsatingButton::after {
+/* === Apply Ripple Effect Only When Activated === */
+.pulsating-button-container.pulsating::before,
+.pulsating-button-container.pulsating::after,
+.pulsating-button-container-prev.pulsating::before,
+.pulsating-button-container-prev.pulsating::after {
   content: "";
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 200px; /* Fixed width to ensure a perfect circle */
-  height: 200px; /* Same as width */
-  background: rgba(128, 128, 128, 0.3); /* Greyish ripple */
-  border-radius: 50%; /* Ensures a perfect circle */
+  width: 200px;
+  height: 200px;
+  background: rgba(128, 128, 128, 0.3);
+  border-radius: 50%;
   transform: translate(-50%, -50%) scale(1);
   opacity: 0;
   animation: rippleEffect 1.5s infinite;
-  z-index: 0; /* Pushes effect behind the button */
-  pointer-events: none; /* Allows clicking other buttons */
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* Second ripple wave for a better effect */
-.pulsatingButton::after {
+/* === Second Ripple Wave for a Better Effect === */
+.pulsating-button-container.pulsating::after,
+.pulsating-button-container-prev.pulsating::after {
   animation-delay: 0.75s;
 }
 
-/* Keyframes for ripple animation */
+/* === Keyframes for Ripple Animation === */
 @keyframes rippleEffect {
   0% {
     transform: translate(-50%, -50%) scale(1);
