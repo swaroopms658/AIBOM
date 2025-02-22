@@ -55,8 +55,11 @@ Integrated with the modelscan tool to perform security vulnerability scans on AI
    ```bash
    uvicorn main:app --reload
    ```
-
+5.Change the download path for the directory at the backend:
+UPLOAD_DIR = r"C:\Users\Username\Downloads\upload"
+EXTRACT_DIR = r"C:\Users\Username\Downloads\extracted"
 ---
+6.Create two different terminals in code editor one for frontend and one for backend
 
 ## API Endpoints
 
