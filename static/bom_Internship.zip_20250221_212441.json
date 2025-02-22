@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "ModelDetails": {
+    "Name": "Internship.zip",
+    "Version": "1.0",
+    "Licenses": [],
+    "Libraries": [
+      "random",
+      "sklearn",
+      "maths",
+      "pandas",
+      "datetime",
+      "math",
+      "os",
+      "numpy",
+      "calendar",
+      "time",
+      "getpass",
+      "matplotlib",
+      "keyword"
+    ],
+    "VersionDetails": {
+      "random": {
+        "Version": "Unknown"
+      },
+      "sklearn": {
+        "Version": "0.0.post12"
+      },
+      "maths": {
+        "Version": "0.0.0"
+      },
+      "pandas": {
+        "Version": "2.2.3"
+      },
+      "datetime": {
+        "Version": "5.5"
+      },
+      "math": {
+        "Version": "Unknown"
+      },
+      "os": {
+        "Version": "Unknown"
+      },
+      "numpy": {
+        "Version": "2.2.3"
+      },
+      "calendar": {
+        "Version": "1.11.4"
+      },
+      "time": {
+        "Version": "1.0.0"
+      },
+      "getpass": {
+        "Version": "Unknown"
+      },
+      "matplotlib": {
+        "Version": "3.10.0"
+      },
+      "keyword": {
+        "Version": "Unknown"
+      }
+    },
+    "SystemSpecs": {
+      "CPU": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+      "RAM": "20 GB",
+      "OS": "Windows 11",
+      "Python": "3.12.5",
+      "GPU": "N/A"
+    },
+    "Source": "Local Upload",
+    "BOMGeneration": {
+      "Timestamp": "2025-02-21T15:54:41.732719",
+      "Method": "Automated Extraction",
+      "GeneratedBy": "FastAPI System"
+    }
+  }
+}
