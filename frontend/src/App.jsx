@@ -168,7 +168,11 @@ function App() {
               style={styles.input}
               placeholder="e.g., C:\Users\Username\model.pkl"
             />
-            <button onClick={handleAutoScan} style={styles.button}>
+            <button 
+              onClick={handleAutoScan} 
+              style={{ width: "150px", padding: "8px 16px", fontSize: "14px", marginLeft: "20px" }} 
+              className="button"
+            >
               Auto Scan
             </button>
           </div>
