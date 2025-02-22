@@ -1,42 +1,63 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Pulsating glow effect (subtle outer glow) */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    box-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+/* Circular pulse effect from button center */
+@keyframes pulseEffect {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.6);
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0;
   }
 }
 
-.card {
-  padding: 2em;
+/* Button base styling */
+.button {
+  background-color: #007bff;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 80%;
+  transition: all 0.3s;
+  position: relative; /* Important for pseudo-elements */
+  overflow: hidden; /* Ensures the pulse effect stays within the button */
 }
 
-.read-the-docs {
-  color: #888;
+/* Apply the glow effect */
+.pulsatingButton {
+  animation: pulse 1.5s infinite;
+}
+
+/* Add circular pulse animation */
+.pulsatingButton::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150%;
+  height: 150%;
+  background: rgba(128, 128, 128, 0.3); /* Greyish pulse */
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(2);
+  opacity: 0;
+  animation: pulseEffect 1.5s infinite;
 }
