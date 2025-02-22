@@ -15,7 +15,7 @@ from datetime import datetime
 import subprocess
 import re
 import importlib.util
-import pkg_resources
+#import pkg_resources
 
 app = FastAPI()
 
@@ -28,8 +28,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-UPLOAD_DIR = r"C:\Users\Sriram\Desktop\AI_BOM_Framework\static"
-EXTRACT_DIR = r"C:\Users\Sriram\Desktop\AI_BOM_Framework\extracted"
+UPLOAD_DIR = r"C:\Users\darsh\Downloads\upload"
+EXTRACT_DIR = r"C:\Users\darsh\Downloads\extracted"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 os.makedirs(EXTRACT_DIR, exist_ok=True)
 app.mount("/static", StaticFiles(directory=UPLOAD_DIR), name="static")
