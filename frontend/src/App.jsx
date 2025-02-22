@@ -156,7 +156,7 @@ function App() {
               value={filePath}
               onChange={handleFilePathChange}
               style={styles.input}
-              placeholder="Enter full file path"
+              placeholder="e.g., C:\\Users\\Username\\model.pkl"
             />
             <button onClick={handleAutoScan} style={styles.button}>
               Auto Scan
